@@ -6,6 +6,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 
 /**
  * Copyright@paidaxing
@@ -14,6 +15,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Description:
  */
 
+@ServletComponentScan("com.make.Filter")
 @SpringBootApplication(scanBasePackages="com.make.*")
 public class DemoApp implements ApplicationRunner{
     @Value("${server.port:8080}")
@@ -28,8 +30,6 @@ public class DemoApp implements ApplicationRunner{
 
     @Override
     public void run(ApplicationArguments arg0) throws Exception{
-//        System.out.println(serverPort);
-//        System.out.println(appName);
         logger.info(appName +" strated at port:" + serverPort);
     }
 }
