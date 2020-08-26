@@ -1,11 +1,9 @@
 package com.make.controller;
 
-import com.make.dao.lolHero;
-import org.omg.CORBA.StringHolder;
+import com.make.model.lolHero;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 /**
  * Copyright@paidaxing

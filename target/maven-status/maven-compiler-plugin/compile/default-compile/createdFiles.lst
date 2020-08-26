@@ -1,2 +1,9 @@
-com\make\controller\ControllerHello.class
+com\make\Interceptors\HeroServiceInterceptor.class
+com\make\Interceptors\HeroServiceInterceptorAppConfig.class
+com\make\model\lolHero.class
+com\make\controller\ControllerAdviceDemo.class
 com\make\demo\DemoApp.class
+com\make\controller\RequestControllerDemo.class
+com\make\controller\HeroExceptionController.class
+com\make\common\HeroNotfoundException.class
+com\make\controller\InterceptorDemo.class

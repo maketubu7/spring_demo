@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Description:
  */
 
-@SpringBootApplication(scanBasePackages="com.make.controller")
+@SpringBootApplication(scanBasePackages="com.make.*")
 public class DemoApp implements ApplicationRunner{
     @Value("${server.port:8080}")
     private String serverPort;
@@ -28,8 +28,8 @@ public class DemoApp implements ApplicationRunner{
 
     @Override
     public void run(ApplicationArguments arg0) throws Exception{
-        System.out.println(serverPort);
-        System.out.println(appName);
-        logger.info(serverPort);
+//        System.out.println(serverPort);
+//        System.out.println(appName);
+        logger.info(appName +" strated at port:" + serverPort);
     }
 }
