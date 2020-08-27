@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset = "ISO-8859-1"/>
+    <title>View Heros</title>
+<!--    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.getJSON("http://localhost:8080/heros", function(result){
+                $.each(result, function(key,value) {
+                    $("#herosJson").append(value.name+" "+value.q+" "+" "+value.e+" ");
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+<div id = "herosJson"> </div>
+</body>
+</html>
+

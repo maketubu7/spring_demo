@@ -22,7 +22,7 @@ public class HeroWebService {
      * 使用exchange()方法为所有HTTP方法使用Web服务
      * @return
      */
-    @RequestMapping(value = "/template/heros")
+    @RequestMapping(value = "/template/heros",method = RequestMethod.GET)
     public String getHeroList() {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));

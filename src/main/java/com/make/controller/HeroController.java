@@ -1,6 +1,12 @@
 package com.make.controller;
 
 import com.make.model.lolHero;
+import com.make.service.HeroService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,45 +22,36 @@ import java.util.Map;
  */
 @RestController
 public class HeroController {
-    private static Map<String, lolHero> heroRepo = new HashMap<>();
-    static {
-        lolHero honey = new lolHero();
-        honey.setName("make1");
-        honey.setQ("胸口碎大石");
-        honey.setW("铁头功");
-        honey.setE("如来神掌");
-        honey.setR("六脉神剑");
-        heroRepo.put(honey.getName(), honey);
-        lolHero almond = new lolHero();
-        almond.setName("make2");
-        almond.setQ("降龙十八章");
-        almond.setW("龟派气功");
-        almond.setE("葵花点血手");
-        almond.setR("九阴真经");
-        heroRepo.put(almond.getName(),almond);
-    }
-    @RequestMapping("/heros")
+
+    /**
+     * 注入一个HeroServiceImpl 实例 类似于 HeroService heroService = new HeroServiceImpl()
+     */
+    @Autowired
+    HeroService heroService;
+
+    @RequestMapping(value = "/heros",method = RequestMethod.GET)
     public ResponseEntity<Object> getHeros(){
-        return new ResponseEntity<>(heroRepo.values(), HttpStatus.OK);
+        return new ResponseEntity<>(heroService.getHeros(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/heros", method = RequestMethod.POST)
     public ResponseEntity<Object> createHero(@RequestBody lolHero hero) {
-        heroRepo.put(hero.getName(), hero);
+        heroService.createProduct(hero);
         return new ResponseEntity<>("hero "+ hero.getName() + " is created successfully", HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/heros/{name}", method = RequestMethod.PUT)
     public ResponseEntity<Object> updateHero(@PathVariable("name") String name, @RequestBody lolHero hero) {
-        heroRepo.remove(name);
-        hero.setName(name);
-        heroRepo.put(name, hero);
+        heroService.updateProduct(name,hero);
         return new ResponseEntity<>("hero "+ hero.getName() + " is updated successsfully", HttpStatus.OK);
     }
 
+    @ApiOperation(value = "删除英雄成员", notes = "删除英雄成员")
+    @ApiImplicitParams(@ApiImplicitParam(name = "name", value = "英雄唯一名称"))
+    @ApiResponse(code = 200,response = Exception.class, message = "delete successfully")
     @RequestMapping(value = "/heros/{name}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteHero(@PathVariable("name") String name) {
-        heroRepo.remove(name);
+        heroService.deleteProduct(name);
         return new ResponseEntity<>("hero "+ name + " is delete successsfully", HttpStatus.OK);
     }
 }

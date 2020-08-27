@@ -2,6 +2,7 @@ package com.make.controller;
 
 import com.make.common.HeroNotfoundException;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class ControllerAdviceDemo {
-    @RequestMapping("/getHero")
+    @RequestMapping(value = "/getHero",method = RequestMethod.GET)
     public String hero(@RequestParam("id") String id){
         if (Integer.parseInt(id) > 10){
             return "德玛西亚之力";

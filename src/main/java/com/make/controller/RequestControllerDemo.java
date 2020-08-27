@@ -42,7 +42,7 @@ public class RequestControllerDemo {
      * @param requestString
      * @return
      */
-    @RequestMapping("/getBodyString")
+    @RequestMapping(value = "/getBodyString",method = RequestMethod.GET)
     public String getBodyString(@RequestBody String requestString){
         return requestString;
     }
@@ -52,7 +52,7 @@ public class RequestControllerDemo {
      * @param hero
      * @return
      */
-    @RequestMapping("/getBodyBean")
+    @RequestMapping(value = "/getBodyBean",method = RequestMethod.GET)
     public String getBodyBean(@RequestBody lolHero hero){
         System.out.println(hero.toString());
         return hero.toString();
@@ -64,13 +64,13 @@ public class RequestControllerDemo {
      * @param id
      * @return
      */
-    @RequestMapping("/getBodyAndParams")
+    @RequestMapping(value = "/getBodyAndParams",method = RequestMethod.GET)
     public String getBodyAndParams(@RequestBody lolHero hero, @RequestParam String id){
         System.out.println(id + " >>> " + hero.toString());
         return id + " >>> " + hero.toString();
     }
 
-    @RequestMapping("/getBodyAndComplexParams")
+    @RequestMapping(value = "/getBodyAndComplexParams",method = RequestMethod.GET)
     public String getBodyAndComplexParams(@RequestBody lolHero hero, @RequestParam ArrayList<String> arrays){
         System.out.println(hero.toString());
         StringBuilder sb = new StringBuilder();
@@ -86,7 +86,7 @@ public class RequestControllerDemo {
      * @param hero2
      * @return
      */
-    @RequestMapping("/getBodyParamsMoreBean")
+    @RequestMapping(value = "/getBodyParamsMoreBean",method = RequestMethod.GET)
     public String getBodyParamsMoreBean(@RequestBody lolHero hero1, lolHero hero2){
         System.out.println(hero1.toString());
         System.out.println(hero2.toString());
@@ -98,7 +98,7 @@ public class RequestControllerDemo {
      * @param id
      * @return
      */
-    @RequestMapping("/pathValue/{username}/{id}")
+    @RequestMapping(value = "/pathValue/{username}/{id}",method = RequestMethod.GET)
     public String pathValue(@PathVariable("id") String id,@PathVariable("username") String username){
         return String.format("username=%s,id=%s",username,id);
     }

@@ -1,25 +1,21 @@
-package com.make.controller;
+package com.make.service;
 
+import com.make.Interceptors.HeroServiceInterceptor;
 import com.make.model.lolHero;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Copyright@paidaxing
  * Author: paidaxing
- * Date:2020/8/25
+ * Date:2020/8/26
  * Description:
  */
-@RestController
-@RequestMapping(value = "/interceptor")
-public class InterceptorDemo {
+@Service
+public class HeroServiceImpl implements HeroService {
     private static Map<String, lolHero> heroRepo = new HashMap<>();
     static {
         lolHero honey = new lolHero();
@@ -38,9 +34,24 @@ public class InterceptorDemo {
         heroRepo.put(almond.getName(),almond);
     }
 
-    @RequestMapping(value = "/getProducts", method = RequestMethod.GET)
-    public ResponseEntity<Object> getProduct(@RequestParam("name") String name) {
-        return new ResponseEntity<>(heroRepo.get(name), HttpStatus.OK);
+    @Override
+    public void createProduct(lolHero hero) {
+        heroRepo.put(hero.getName(),hero);
     }
 
+    @Override
+    public void updateProduct(String name, lolHero hero) {
+        heroRepo.remove(name);
+        heroRepo.put(name,hero);
+    }
+
+    @Override
+    public void deleteProduct(String name) {
+        heroRepo.remove(name);
+    }
+
+    @Override
+    public Collection<lolHero> getHeros() {
+        return heroRepo.values();
+    }
 }

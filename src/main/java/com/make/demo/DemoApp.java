@@ -6,7 +6,21 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Copyright@paidaxing
@@ -16,11 +30,14 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
  */
 
 @ServletComponentScan("com.make.Filter")
-@SpringBootApplication(scanBasePackages="com.make.*")
+@SpringBootApplication(scanBasePackages="com.make.*",exclude = {DataSourceAutoConfiguration.class})
+@EnableScheduling //可调度程序
+@EnableDiscoveryClient //Eureak 客户端注册
+@EnableSwagger2  //接口管理
 public class DemoApp implements ApplicationRunner{
     @Value("${server.port:8080}")
     private String serverPort;
-    @Value("${server.portspring.application.name:App}")
+    @Value("${spring.application.name:App}")
     private String appName;
     private static final Logger logger = LoggerFactory.getLogger(DemoApp.class);
 
@@ -32,4 +49,31 @@ public class DemoApp implements ApplicationRunner{
     public void run(ApplicationArguments arg0) throws Exception{
         logger.info(appName +" strated at port:" + serverPort);
     }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurerAdapter() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/crossOrigin").allowedOrigins("http://localhost:9090");
+            }
+        };
+    }
+
+    @Bean
+    public Docket productApi() {
+        return new Docket(DocumentationType.SWAGGER_2).select()
+                .apis(RequestHandlerSelectors.basePackage("com.make.controller")).build();
+    }
+    @Bean
+    public ApiInfo apiInfo() {
+        Contact contact = new Contact("maketubu", "localhost:8080", "maketubu@gmail.com");
+        return new ApiInfoBuilder()
+                .title("SwaggerUI演示")
+                .description("接口文档，描述词省略200字")
+                .contact(contact)
+                .version("1.0")
+                .build();
+    }
+
 }
