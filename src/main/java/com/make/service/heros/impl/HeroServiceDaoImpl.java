@@ -33,7 +33,7 @@ public class HeroServiceDaoImpl implements HeroDaoService {
     }
 
     @Override
-    public heroDAO getHeroByNane(String name) {
+    public heroDAO getHeroByName(String name) {
         return heroDAOMapper.selectByName(name);
     }
 
