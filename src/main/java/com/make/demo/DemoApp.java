@@ -1,4 +1,5 @@
 package com.make.demo;
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -30,7 +32,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 
 @ServletComponentScan("com.make.Filter")
-@SpringBootApplication(scanBasePackages="com.make.*",exclude = {DataSourceAutoConfiguration.class})
+@SpringBootApplication(scanBasePackages={"com.make.*","com.make.service.*"})
+@MapperScan("com.make.dao")
 @EnableScheduling //可调度程序
 @EnableDiscoveryClient //Eureak 客户端注册
 @EnableSwagger2  //接口管理

@@ -1,4 +1,4 @@
-package com.make.service;
+package com.make.service.heros;
 
 import com.make.model.lolHero;
 

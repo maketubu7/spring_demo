@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.make.dao.heroDAOMapper" >
+  <resultMap id="BaseResultMap" type="com.make.model.heroDAO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="name" property="name" jdbcType="VARCHAR" />
+    <result column="q" property="q" jdbcType="VARCHAR" />
+    <result column="w" property="w" jdbcType="VARCHAR" />
+    <result column="e" property="e" jdbcType="VARCHAR" />
+    <result column="r" property="r" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, q, w, e, r
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.make.model.heroDAOKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from make_heros
+    where id = #{id,jdbcType=INTEGER}
+      and name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="string" >
+    select
+    <include refid="Base_Column_List" />
+    from make_heros
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="findAllHero" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from make_heros
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.make.model.heroDAOKey" >
+    delete from make_heros
+    where id = #{id,jdbcType=INTEGER}
+      and name = #{name,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.make.model.heroDAO" >
+    insert into make_heros (id, name, q, 
+      w, e, r)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{q,jdbcType=VARCHAR}, 
+      #{w,jdbcType=VARCHAR}, #{e,jdbcType=VARCHAR}, #{r,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.make.model.heroDAO" >
+    insert into make_heros
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="q != null" >
+        q,
+      </if>
+      <if test="w != null" >
+        w,
+      </if>
+      <if test="e != null" >
+        e,
+      </if>
+      <if test="r != null" >
+        r,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="q != null" >
+        #{q,jdbcType=VARCHAR},
+      </if>
+      <if test="w != null" >
+        #{w,jdbcType=VARCHAR},
+      </if>
+      <if test="e != null" >
+        #{e,jdbcType=VARCHAR},
+      </if>
+      <if test="r != null" >
+        #{r,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.make.model.heroDAO" >
+    update make_heros
+    <set >
+      <if test="q != null" >
+        q = #{q,jdbcType=VARCHAR},
+      </if>
+      <if test="w != null" >
+        w = #{w,jdbcType=VARCHAR},
+      </if>
+      <if test="e != null" >
+        e = #{e,jdbcType=VARCHAR},
+      </if>
+      <if test="r != null" >
+        r = #{r,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+      and name = #{name,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.make.model.heroDAO" >
+    update make_heros
+    set q = #{q,jdbcType=VARCHAR},
+      w = #{w,jdbcType=VARCHAR},
+      e = #{e,jdbcType=VARCHAR},
+      r = #{r,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+      and name = #{name,jdbcType=VARCHAR}
+  </update>
+</mapper>

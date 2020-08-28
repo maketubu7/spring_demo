@@ -1,4 +1,4 @@
-package com.make.controller;
+package com.make.common;
 
 import com.make.common.HeroNotfoundException;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * 全局异常处理,对于对应的某个异常，做出不同的反应，类似于以前的 try/catch/finally
  */
 @ControllerAdvice
-public class HeroExceptionController {
+public class HeroExceptionAdvice {
     @ExceptionHandler(value = HeroNotfoundException.class)
     public ResponseEntity<Object> exception(HeroNotfoundException exception) {
         return new ResponseEntity<>("Product not found", HttpStatus.NOT_FOUND);
