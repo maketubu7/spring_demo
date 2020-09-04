@@ -33,7 +33,7 @@ public class HeroServiceDaoImpl implements HeroDaoService {
     }
 
     @Override
-    public heroDAO getHeroByName(String name) {
+    public List<heroDAO> getHeroByName(String name) {
         return heroDAOMapper.selectByName(name);
     }
 
@@ -41,7 +41,7 @@ public class HeroServiceDaoImpl implements HeroDaoService {
     public PageInfo findAllUser(int pageNum, int pageSize) {
 
         PageHelper.startPage(pageNum,pageSize);
-        List<heroDAO> heroDomain = heroDAOMapper.findAllHero();
+        List<heroDAO> heroDomain = heroDAOMapper.findAllUser();
         return new PageInfo(heroDomain);
     }
 }

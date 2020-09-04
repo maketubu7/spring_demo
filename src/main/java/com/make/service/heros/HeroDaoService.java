@@ -16,7 +16,7 @@ public interface HeroDaoService {
 
     int updateHero(heroDAO hero);
 
-    heroDAO getHeroByName(String name);
+    List<heroDAO> getHeroByName(String name);
 
     PageInfo<heroDAO> findAllUser(int pageNum, int pageSize);
 

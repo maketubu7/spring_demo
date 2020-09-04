@@ -14,11 +14,11 @@ public interface heroDAOMapper {
 
     heroDAO selectByPrimaryKey(heroDAOKey key);
 
-    heroDAO selectByName(String name);
-
     int updateByPrimaryKeySelective(heroDAO record);
 
     int updateByPrimaryKey(heroDAO record);
 
-    List<heroDAO> findAllHero();
+    List<heroDAO> selectByName(String name);
+
+    List<heroDAO> findAllUser();
 }

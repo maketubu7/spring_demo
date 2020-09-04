@@ -1,9 +1,6 @@
 package com.make.model;
 
-import net.bytebuddy.implementation.bind.annotation.Super;
-
 public class heroDAO extends heroDAOKey {
-
     private String q;
 
     private String w;
