@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.make.model.heroDAO;
 import com.make.model.heroDAOKey;
 
+import java.util.List;
+
 /**
  * Copyright@paidaxing
  * Author: paidaxing
@@ -14,11 +16,17 @@ public interface HeroMybatisService {
 
     int addHero(heroDAO hero);
 
+    int batchAddHero(List<heroDAO> heros);
+
     int updateHero(heroDAO hero);
 
     int deleteHero(heroDAOKey key);
 
-    heroDAO getHeroByName(String name);
+    heroDAO getHeroByKey(heroDAOKey key);
+
+    List<heroDAO> getHeroByName(String name);
 
     PageInfo<heroDAO> findAllUser(int pageNum, int pageSize);
+
+
 }

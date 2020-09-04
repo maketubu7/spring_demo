@@ -20,6 +20,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class HeroExceptionAdvice {
     @ExceptionHandler(value = HeroNotfoundException.class)
     public ResponseEntity<Object> exception(HeroNotfoundException exception) {
-        return new ResponseEntity<>("Product not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("hero not found", HttpStatus.NOT_FOUND);
     }
 }

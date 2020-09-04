@@ -53,7 +53,9 @@ public class sqlProvider {
             if (!StringUtils.isEmpty(hero.getR())) {
                 SET("e= #{hero.r,javaType=String,jdbcType=VARCHAR}");
             }
-            WHERE("id = #{hero.id,javaType=Long,jdbcType=BIGINT} and name = #{hero.name,javaType=Long,jdbcType=BIGINT}" );
+            WHERE("id = #{hero.id,javaType=Long,jdbcType=BIGINT} and name = #{hero.name,javaType=String,jdbcType=VARCHAR}" );
         }}.toString();
     }
+
+//    public String batchAddHero()
 }

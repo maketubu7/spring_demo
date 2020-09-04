@@ -1,9 +1,15 @@
 package com.make.scheduler;
 
+import com.make.common.EmailTool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import javax.mail.MessagingException;
+import javax.security.auth.Subject;
+import java.io.IOException;
+import java.util.Random;
 
 /**
  * Copyright@paidaxing
@@ -53,5 +59,15 @@ public class SchedulerDemo {
     public void everyDayTwo(){
         System.out.println("每天凌晨两点调度");
         logger.info("每天凌晨两点调度");
+    }
+
+    @Scheduled(fixedRate = 600000,initialDelay = 1000)
+    public void sendEmail() throws IOException, MessagingException {
+        System.out.println("应用开启后1秒后首次执行，之后每10分钟调度");
+        Random random = new Random();
+        String Subject = String.valueOf(random.nextInt());
+        String content = String.valueOf(random.nextInt());
+        EmailTool.sendEmail("dengwenxingae61@163.com",Subject,content);
+        logger.info("邮件发送成功");
     }
 }

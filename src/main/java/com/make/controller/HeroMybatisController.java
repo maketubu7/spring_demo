@@ -1,5 +1,6 @@
 package com.make.controller;
 
+import com.make.common.HeroNotfoundException;
 import com.make.model.heroDAO;
 import com.make.model.heroDAOKey;
 import com.make.service.heros.HeroDaoService;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Copyright@paidaxing
@@ -35,16 +38,25 @@ public class HeroMybatisController {
         return new ResponseEntity<>("hero "+ hero.getName() + " is created successfully", HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/heros/{name}", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateHero(@PathVariable("name") String name, @RequestBody heroDAO hero) {
-        heroMybatisService.updateHero(hero);
-        return new ResponseEntity<>("hero "+ hero.getName() + " is updated successsfully", HttpStatus.OK);
+    @RequestMapping(value = "/batchAddHeros", method = RequestMethod.POST)
+    public ResponseEntity<Object> batchAddHeros(@RequestBody List<heroDAO> heros) {
+        int num = heroMybatisService.batchAddHero(heros);
+        return new ResponseEntity<>(String.format("insert %d data successfully",num), HttpStatus.CREATED);
+    }
+
+    @RequestMapping(value = "/heros", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateHero(@RequestBody heroDAO hero) {
+        if(heroMybatisService.updateHero(hero)== 1){
+            return new ResponseEntity<>("hero "+ hero.getName() + " is updated successsfully", HttpStatus.OK);
+        }else{
+            throw new HeroNotfoundException();
+        }
     }
 
     @RequestMapping(value = "/getHero", method = RequestMethod.GET)
     public ResponseEntity<Object> getHero(@RequestParam("name") String name) {
-        heroDAO hero = heroMybatisService.getHeroByName(name);
-        return new ResponseEntity<>(hero, HttpStatus.OK);
+        List<heroDAO> heros = heroMybatisService.getHeroByName(name);
+        return new ResponseEntity<>(heros, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/deleteHero", method = RequestMethod.DELETE)

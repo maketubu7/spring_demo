@@ -1,12 +1,15 @@
 package com.make.service.heros.impl;
 
 import com.github.pagehelper.PageInfo;
+import com.make.common.HeroNotfoundException;
 import com.make.dao.heroMybatisMapper;
 import com.make.model.heroDAO;
 import com.make.model.heroDAOKey;
 import com.make.service.heros.HeroMybatisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Copyright@paidaxing
@@ -27,8 +30,24 @@ public class HeroMybatisServiceImpl implements HeroMybatisService {
     }
 
     @Override
+    public int batchAddHero(List<heroDAO> heros) {
+        heroMybatisMapper.batchAddHero(heros);
+        return heros.size();
+    }
+
+    @Override
     public int updateHero(heroDAO hero) {
-        return heroMybatisMapper.updateHeroSelective(hero);
+        heroDAOKey key = new heroDAOKey();
+        key.setId(hero.getId());
+        key.setName(hero.getName());
+        if(heroMybatisMapper.selectByKey(key) != null){
+            heroMybatisMapper.updateHero(hero);
+            return 1;
+        }
+        else{
+            return 0;
+        }
+
     }
 
     @Override
@@ -37,12 +56,17 @@ public class HeroMybatisServiceImpl implements HeroMybatisService {
     }
 
     @Override
-    public heroDAO getHeroByName(String name) {
-        return heroMybatisMapper.selectByName(name);
+    public heroDAO getHeroByKey(heroDAOKey key) {
+        return heroMybatisMapper.selectByKey(key);
     }
 
     @Override
     public PageInfo<heroDAO> findAllUser(int pageNum, int pageSize) {
         return new PageInfo(heroMybatisMapper.findAllHero());
+    }
+
+    @Override
+    public List<heroDAO> getHeroByName(String name) {
+        return heroMybatisMapper.selectByName(name);
     }
 }

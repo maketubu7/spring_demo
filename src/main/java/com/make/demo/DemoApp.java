@@ -62,7 +62,7 @@ public class DemoApp implements ApplicationRunner{
     }
 
     @Bean
-    public Docket productApi() {
+    public Docket heroApi() {
         return new Docket(DocumentationType.SWAGGER_2).select()
                 .apis(RequestHandlerSelectors.basePackage("com.make.controller")).build();
     }
