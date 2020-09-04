@@ -1,7 +1,6 @@
 package com.make.service.heros.impl;
 
 import com.github.pagehelper.PageInfo;
-import com.make.common.HeroNotfoundException;
 import com.make.dao.heroMybatisMapper;
 import com.make.model.heroDAO;
 import com.make.model.heroDAOKey;
@@ -69,4 +68,5 @@ public class HeroMybatisServiceImpl implements HeroMybatisService {
     public List<heroDAO> getHeroByName(String name) {
         return heroMybatisMapper.selectByName(name);
     }
+
 }

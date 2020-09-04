@@ -1,13 +1,7 @@
 package com.make.controller;
 
 import com.make.model.heroDAO;
-import com.make.model.lolHero;
 import com.make.service.heros.HeroDaoService;
-import com.make.service.heros.HeroService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +22,10 @@ public class HeroDaoController {
     @Autowired(required = false)
     HeroDaoService heroDaoService;
 
-    @RequestMapping(value = "/heros",method = RequestMethod.GET)
-    public ResponseEntity<Object> getHeros(){
-        return new ResponseEntity<>(heroDaoService.findAllUser(1,4), HttpStatus.OK);
-    }
+//    @RequestMapping(value = "/heros",method = RequestMethod.GET)
+//    public ResponseEntity<Object> getHeros(){
+//        return new ResponseEntity<>(heroDaoService.findAllUser(1,4), HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "/heros", method = RequestMethod.POST)
     public ResponseEntity<Object> createHero(@RequestBody heroDAO hero) {

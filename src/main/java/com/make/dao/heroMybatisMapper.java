@@ -26,7 +26,7 @@ public interface heroMybatisMapper {
             "</foreach>",
             "</script>"
     })
-    //多条数据插入
+        //多条数据插入
     int batchAddHero(@Param("heros") List<heroDAO> heros);
 
     @InsertProvider(type = sqlProvider.class,method = "addHero")

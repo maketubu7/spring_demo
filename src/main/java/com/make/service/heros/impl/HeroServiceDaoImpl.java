@@ -1,14 +1,10 @@
 package com.make.service.heros.impl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.make.dao.heroDAOMapper;
 import com.make.model.heroDAO;
 import com.make.service.heros.HeroDaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Copyright@paidaxing
@@ -20,7 +16,7 @@ import java.util.List;
 public class HeroServiceDaoImpl implements HeroDaoService {
 
     @Autowired(required = false)
-    heroDAOMapper heroDAOMapper;
+    com.make.dao.heroDAOMapper heroDAOMapper;
 
     @Override
     public int updateHero(heroDAO hero) {
@@ -32,16 +28,17 @@ public class HeroServiceDaoImpl implements HeroDaoService {
         return heroDAOMapper.insert(hero);
     }
 
-    @Override
-    public List<heroDAO> getHeroByName(String name) {
-        return heroDAOMapper.selectByName(name);
-    }
+//    @Override
+//    public List<heroDAO> getHeroByName(String name) {
+//        return heroDAOMapper.selectByName(name);
+//    }
 
-    @Override
-    public PageInfo findAllUser(int pageNum, int pageSize) {
+//    @Override
+//    public PageInfo findAllUser(int pageNum, int pageSize) {
+//
+//        PageHelper.startPage(pageNum,pageSize);
+//        List<heroDAO> heroDomain = heroDAOMapper.findAllUser();
+//        return new PageInfo(heroDomain);
+//    }
 
-        PageHelper.startPage(pageNum,pageSize);
-        List<heroDAO> heroDomain = heroDAOMapper.findAllUser();
-        return new PageInfo(heroDomain);
-    }
 }
